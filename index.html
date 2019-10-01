@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Text-Editor</title>
+  </head>
+  <body onload="enableEditMode()">
+    <div class="container">
+            <h2 class="text-center text-danger">My Text Editor</h2>
+        <div class="row m-2">
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('bold')"><i class="fa fa-bold"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('italic')"><i class="fa fa-italic"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('underline')"><i class="fa fa-underline"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('strikeThrough')"><i class="fa fa-strikethrough"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('justifyLeft')"><i class="fa fa-align-left"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('JustifyCenter')"><i class="fa fa-align-center"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('justifyRight')"><i class="fa fa-align-right"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('justifyFull')"><i class="fa fa-align-justify"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('cut')"><i class="fa fa-cut"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('copy')"><i class="fa fa-copy"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('indent')"><i class="fa fa-indent"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('outdent')"><i class="fa fa-dedent"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('undo')"><i class="fa fa-undo"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('redo')"><i class="fa fa-repeat"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('subscript')"><i class="fa fa-subscript"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('superscript')"><i class="fa fa-superscript"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('insertUnorderedList')"><i class="fa fa-list-ul"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('insertOrderedList')"><i class="fa fa-list-ol"></i></button>
+            <select class="btn btn-dark btn-sm" onchange="execCommandWithArg('formatBlock', this.value);">
+                <option value="H1">h1</option>
+                <option value="H2">h2</option>
+                <option value="H3">h3</option>
+                <option value="H4">h4</option>
+                <option value="H5">h5</option>
+                <option value="H6">h6</option>
+            </select>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('insertParagraph')"><i class="fa fa-paragraph"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCommandWithArg('createLink',prompt('enter a URL', 'http://'));"><i class="fa fa-link"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('unlink')"><i class="fa fa-unlink"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="toggleSource()"><i class="fa fa-code"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="toggleEdit()"><i class="fa fa-toggle-on"></i></button><br>
+            <select class="btn btn-dark btn-sm m-1" onchange="execCommandWithArg('fontName' ,this.value);">
+                <option value="Arial">Arial</option>
+                <option value="Comic Sans MS">cosmic sans MS</option>
+                <option value="courier">courier</option>
+                <option value="georgia">georgia</option>
+                <option value="Times New Roman">times new roman</option>
+                <option value="verdana">verdana</option>
+            </select>
+            <select class="btn btn-dark btn-sm m-1" onchange="execCommandWithArg('fontSize' ,this.value);">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+            Fore Color : &nbsp; <input type="color" onchange="execCommandWithArg('foreColor',this.value);" class="m-1">
+            Background Color : &nbsp; <input type="color" onchange="execCommandWithArg('hiliteColor',this.value);" class="m-1">
+            <button class="btn btn-light btn-sm m-1" onclick="execCommandWithArg('insert image',prompt('enter the image',''));"><i class="fa fa-file-image-o"></i></button>
+            <button class="btn btn-light btn-sm m-1" onclick="execCmd('selectAll');">SelectAll</button><br>
+            <iframe name="contentText" class="form-control scrollbar-successs" style="height:500px; width:100%;" frameborder="0"></iframe>
+        </div>
+    </div>
+  </body>
+</html>
+<script src="./js/main1.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
